@@ -101,6 +101,30 @@
   <section id="contact" class="section contact">
     <p class="eyebrow center">Une envie, une commande ?</p>
     <h2>Contactez Brigitte</h2>
+
+    <!-- Formulaire : les messages sont envoyés au courriel de Brigitte par FormSubmit (gratuit) -->
+    <form class="contact-form" action="https://formsubmit.co/brigitte.sirois1961@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="Nouveau message — Création Mère-Grand">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_next" value="https://soralee14.github.io/creation-mere-grand/merci.html">
+      <input type="text" name="_honey" class="honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+      <label>Votre nom
+        <input type="text" name="Nom" required autocomplete="name">
+      </label>
+      <label>Votre courriel
+        <input type="email" name="email" required autocomplete="email">
+      </label>
+      <label>Votre téléphone <span class="opt">(facultatif)</span>
+        <input type="tel" name="Téléphone" autocomplete="tel">
+      </label>
+      <label>Votre message
+        <textarea name="Message" rows="5" required placeholder="Ex. : Je cherche un chandail à capuchon en taille 4 ans…"></textarea>
+      </label>
+      <button type="submit" class="btn">Envoyer le message</button>
+    </form>
+
+    <p class="or">ou directement :</p>
     <div class="contact-links">
       <a class="btn" href="tel:+12633794214">📞 263 379-4214</a>
       <a class="btn btn-outline" href="mailto:brigitte.sirois1961@gmail.com?subject=Création%20Mère-Grand">✉️ brigitte.sirois1961@gmail.com</a>
