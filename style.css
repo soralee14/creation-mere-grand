@@ -1,0 +1,148 @@
+:root {
+  --bg: #fbf5ee;          /* crème de la pancarte */
+  --surface: #fffaf5;
+  --navy: #22384f;        /* titres bleu marine */
+  --text: #2f3a44;
+  --muted: #6b7178;
+  --rose: #b4545a;        /* rouge "Mère-Grand" */
+  --rose-soft: #f0d9d4;
+  --blue: #9fbcc4;        /* bleu-gris des formes */
+  --radius: 18px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font-family: "DM Sans", system-ui, sans-serif; font-size: 17px; line-height: 1.6;
+  overflow-x: hidden;
+}
+/* formes douces en fond, comme sur la maquette */
+body::before, body::after {
+  content: ""; position: fixed; z-index: -1; border-radius: 50%; filter: blur(2px); opacity: .45;
+}
+body::before { width: 340px; height: 260px; top: -120px; left: -140px; background: var(--blue); }
+body::after  { width: 420px; height: 300px; bottom: -180px; right: -160px; background: var(--rose-soft); }
+
+img { max-width: 100%; display: block; width: 100%; height: 100%; object-fit: cover; }
+h1, h2, h3 { font-family: "Fraunces", Georgia, serif; color: var(--navy); line-height: 1.15; margin: 0 0 .5em; font-weight: 600; }
+h1 { font-size: clamp(2.1rem, 5vw, 3.3rem); }
+h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); }
+figure { margin: 0; }
+
+/* ===== En-tête / logo ===== */
+.topbar {
+  position: sticky; top: 0; z-index: 10;
+  display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+  padding: .6rem clamp(16px, 5vw, 64px);
+  background: rgba(251, 245, 238, .93); backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--rose-soft);
+}
+.logo { text-decoration: none; display: flex; flex-direction: column; align-items: center; line-height: 1; }
+.logo-top { font-family: "Dancing Script", cursive; font-size: 1.5rem; color: var(--navy); }
+.dash { font-style: normal; color: var(--blue); font-size: 1rem; }
+.logo-script { font-family: "Great Vibes", cursive; font-size: 2.3rem; color: var(--rose); margin-top: -.15em; }
+nav { display: flex; gap: 1.6rem; align-items: center; }
+nav a { color: var(--navy); text-decoration: none; font-weight: 500; padding: .3rem 0; border-bottom: 2px solid transparent; }
+nav a:hover { border-color: var(--rose); }
+nav .nav-cta { background: var(--rose); color: #fff; padding: .45rem 1.1rem; border-radius: 999px; border: 0; }
+nav .nav-cta:hover { background: #963f46; }
+
+/* ===== Boutons ===== */
+.btn {
+  display: inline-block; background: var(--rose); color: #fff; text-decoration: none;
+  font-weight: 700; padding: .85rem 1.6rem; border-radius: 999px; transition: background .2s;
+}
+.btn:hover { background: #963f46; }
+.btn-outline { background: transparent; color: var(--rose); border: 2px solid var(--rose); }
+.btn-outline:hover { background: var(--rose); color: #fff; }
+
+/* ===== Images de remplacement (en attendant les vraies photos) ===== */
+.ph {
+  position: relative; width: 100%; height: 100%; min-height: 160px;
+  display: grid; place-items: center; font-size: 3rem; border-radius: inherit;
+  background: repeating-linear-gradient(45deg, #f3e6dc 0 14px, #f8eee6 14px 28px);
+}
+.ph::after {
+  content: attr(data-label); position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+  font-size: .75rem; color: var(--muted); background: rgba(255,255,255,.8);
+  padding: .15rem .6rem; border-radius: 999px; white-space: nowrap;
+}
+
+/* ===== Accueil ===== */
+.hero {
+  display: grid; grid-template-columns: 1fr 1.15fr; gap: 3rem; align-items: center;
+  max-width: 1180px; margin: 0 auto; padding: clamp(36px, 7vw, 80px) clamp(16px, 5vw, 64px);
+}
+.heart { color: var(--rose); font-family: "Dancing Script", cursive; }
+.rule { width: 60px; border: 0; border-top: 2px solid var(--rose); margin: 1.2rem 0; }
+.hero-text p { color: var(--muted); max-width: 30em; margin-bottom: 1.6rem; }
+.hero-img { aspect-ratio: 4 / 3; border-radius: 40% 0 0 40% / 30% 0 0 30%; overflow: hidden; }
+
+/* ===== Sections ===== */
+.section { max-width: 1180px; margin: 0 auto; padding: clamp(40px, 6vw, 80px) clamp(16px, 5vw, 64px); }
+.eyebrow { text-transform: uppercase; letter-spacing: .28em; font-size: .78rem; color: var(--navy); margin: 0 0 .4rem; }
+.eyebrow.center { text-align: center; }
+
+/* La créatrice */
+.creatrice { display: flex; gap: 3rem; align-items: center; }
+.portrait { flex: 0 0 260px; height: 260px; border-radius: 50%; overflow: hidden; box-shadow: 0 0 0 8px var(--surface); }
+.creatrice-text p:last-child { color: var(--muted); max-width: 34em; }
+.creatrice .eyebrow::after { content: ""; display: inline-block; width: 60px; border-top: 1px solid var(--rose); margin-left: 1rem; vertical-align: middle; }
+
+/* L'atelier */
+.atelier {
+  display: grid; grid-template-columns: 1.3fr 1fr 0.8fr; gap: 1rem;
+  max-width: 1180px; margin: 0 auto; padding: 0 clamp(16px, 5vw, 64px);
+}
+.atelier > * { aspect-ratio: 16 / 11; border-radius: var(--radius); overflow: hidden; }
+
+/* Portfolio */
+.portfolio h2 { text-align: center; margin-bottom: .2rem; }
+.title-deco span { color: var(--rose); font-size: .8em; margin: 0 .4em; }
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2rem; }
+.item { border-radius: var(--radius); overflow: hidden; background: var(--surface); box-shadow: 0 6px 20px rgba(34,56,79,.08); transition: transform .2s; }
+.item:hover { transform: translateY(-4px); }
+.item > :first-child { aspect-ratio: 4 / 5; height: auto; }
+.item .ph::after { display: none; }
+figcaption { padding: .7rem 1rem; font-weight: 500; color: var(--navy); text-align: center; }
+
+/* Valeurs */
+.valeurs {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  max-width: 1000px; margin: 0 auto; padding: 1rem clamp(16px, 5vw, 64px) 2rem;
+}
+.valeur { display: flex; gap: 1rem; align-items: flex-start; padding: 0 1.5rem; }
+.valeur + .valeur { border-left: 1px solid var(--rose-soft); }
+.ico { font-size: 2.2rem; line-height: 1; }
+.valeur h3 { font-size: 1.2rem; margin-bottom: .15rem; }
+.valeur p { margin: 0; color: var(--muted); font-size: .92rem; }
+
+/* Contact */
+.contact { text-align: center; }
+.contact-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 1rem; }
+.contact .btn { word-break: break-all; }
+
+footer { text-align: center; padding: 2rem 16px 2.5rem; color: var(--muted); font-size: .9rem; border-top: 1px solid var(--rose-soft); }
+.footer-script { font-family: "Great Vibes", cursive; font-size: 1.8rem; color: var(--rose); }
+
+/* ===== Tablette ===== */
+@media (max-width: 900px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+  .valeurs { grid-template-columns: 1fr; gap: 1.2rem; }
+  .valeur + .valeur { border-left: 0; }
+}
+/* ===== Téléphone ===== */
+@media (max-width: 720px) {
+  .hero { grid-template-columns: 1fr; gap: 1.5rem; }
+  .hero-img { order: -1; border-radius: var(--radius); }
+  .creatrice { flex-direction: column; text-align: center; gap: 1.5rem; }
+  .portrait { flex-basis: auto; width: 200px; height: 200px; }
+  .creatrice .eyebrow::after { display: none; }
+  .creatrice-text p:last-child { margin: 0 auto; }
+  .atelier { grid-template-columns: 1fr 1fr; }
+  .atelier > :first-child { grid-column: span 2; }
+  nav { gap: 1rem; }
+  nav a:not(.nav-cta) { display: none; }
+  .logo-script { font-size: 1.9rem; }
+}
