@@ -135,6 +135,58 @@
     <p><span class="footer-script">Création Mère-Grand</span><br>© <span id="annee"></span> · Fait au Québec avec amour</p>
   </footer>
 
-  <script>document.getElementById('annee').textContent = new Date().getFullYear();</script>
+  <!-- ===== VISIONNEUSE (clic sur une photo pour l'agrandir) ===== -->
+  <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Photo agrandie">
+    <button class="lb-btn lb-close" aria-label="Fermer">✕</button>
+    <button class="lb-btn lb-prev" aria-label="Photo précédente">‹</button>
+    <img class="lb-img" alt="">
+    <button class="lb-btn lb-next" aria-label="Photo suivante">›</button>
+  </div>
+
+  <script>
+    document.getElementById('annee').textContent = new Date().getFullYear();
+
+    // Visionneuse
+    (function () {
+      const photos = [...document.querySelectorAll('.portrait img, .atelier img, .item img')];
+      const box = document.getElementById('lightbox');
+      const img = box.querySelector('.lb-img');
+      let i = 0;
+
+      function show(n) {
+        i = (n + photos.length) % photos.length;
+        img.src = photos[i].src;
+        img.alt = photos[i].alt;
+      }
+      function open(n) { show(n); box.hidden = false; document.body.style.overflow = 'hidden'; }
+      function close() { box.hidden = true; document.body.style.overflow = ''; }
+
+      photos.forEach((p, n) => {
+        p.classList.add('zoomable');
+        p.tabIndex = 0;
+        p.addEventListener('click', () => open(n));
+        p.addEventListener('keydown', e => { if (e.key === 'Enter') open(n); });
+      });
+      box.querySelector('.lb-close').onclick = close;
+      box.querySelector('.lb-prev').onclick = e => { e.stopPropagation(); show(i - 1); };
+      box.querySelector('.lb-next').onclick = e => { e.stopPropagation(); show(i + 1); };
+      box.addEventListener('click', e => { if (e.target === box) close(); });
+      document.addEventListener('keydown', e => {
+        if (box.hidden) return;
+        if (e.key === 'Escape') close();
+        if (e.key === 'ArrowLeft') show(i - 1);
+        if (e.key === 'ArrowRight') show(i + 1);
+      });
+      // Glisser du doigt sur téléphone
+      let x0 = null;
+      box.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, { passive: true });
+      box.addEventListener('touchend', e => {
+        if (x0 === null) return;
+        const dx = e.changedTouches[0].clientX - x0;
+        if (Math.abs(dx) > 50) show(dx < 0 ? i + 1 : i - 1);
+        x0 = null;
+      });
+    })();
+  </script>
 </body>
 </html>
