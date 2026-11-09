@@ -101,33 +101,27 @@
   <section id="contact" class="section contact">
     <p class="eyebrow center">Une envie, une commande ?</p>
     <h2>Contactez Brigitte</h2>
+    <p>Écrivez-moi ou appelez-moi, je réponds avec plaisir !</p>
 
-    <!-- Formulaire : les messages sont envoyés au courriel de Brigitte par FormSubmit (gratuit) -->
-    <form class="contact-form" action="https://formsubmit.co/creationmeregrand@gmail.com" method="POST">
-      <input type="hidden" name="_subject" value="Nouveau message — Création Mère-Grand">
-      <input type="hidden" name="_template" value="table">
-      <input type="hidden" name="_next" value="https://creationmeregrand.ca/merci.html">
-      <input type="text" name="_honey" class="honey" tabindex="-1" autocomplete="off" aria-hidden="true">
-
-      <label>Votre nom
-        <input type="text" name="Nom" required autocomplete="name">
-      </label>
-      <label>Votre courriel
-        <input type="email" name="email" required autocomplete="email">
-      </label>
-      <label>Votre téléphone <span class="opt">(facultatif)</span>
-        <input type="tel" name="Téléphone" autocomplete="tel">
-      </label>
-      <label>Votre message
-        <textarea name="Message" rows="5" required placeholder="Ex. : Je cherche un chandail à capuchon en taille 4 ans…"></textarea>
-      </label>
-      <button type="submit" class="btn">Envoyer le message</button>
-    </form>
-
-    <p class="or">ou directement :</p>
-    <div class="contact-links">
-      <a class="btn" href="tel:+12633794214">📞 263 379-4214</a>
-      <a class="btn btn-outline" href="mailto:brigitte.sirois1961@gmail.com?subject=Création%20Mère-Grand">✉️ brigitte.sirois1961@gmail.com</a>
+    <div class="contact-cards">
+      <div class="contact-card">
+        <span class="cc-ico">✉️</span>
+        <span class="cc-label">Courriel</span>
+        <span class="cc-value" id="courriel">brigitte.sirois1961@gmail.com</span>
+        <div class="cc-actions">
+          <button type="button" class="btn copy-btn" data-copy="brigitte.sirois1961@gmail.com">Copier</button>
+          <a class="btn btn-outline" href="mailto:brigitte.sirois1961@gmail.com?subject=Création%20Mère-Grand">Écrire</a>
+        </div>
+      </div>
+      <div class="contact-card">
+        <span class="cc-ico">📞</span>
+        <span class="cc-label">Téléphone</span>
+        <span class="cc-value">263 379-4214</span>
+        <div class="cc-actions">
+          <button type="button" class="btn copy-btn" data-copy="263 379-4214">Copier</button>
+          <a class="btn btn-outline" href="tel:+12633794214">Appeler</a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -145,6 +139,20 @@
 
   <script>
     document.getElementById('annee').textContent = new Date().getFullYear();
+
+    // Boutons « Copier »
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const text = btn.dataset.copy;
+        try { await navigator.clipboard.writeText(text); }
+        catch {
+          const t = document.createElement('textarea'); t.value = text; document.body.appendChild(t);
+          t.select(); document.execCommand('copy'); t.remove();
+        }
+        const old = btn.textContent; btn.textContent = 'Copié ✓'; btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = old; btn.classList.remove('copied'); }, 2000);
+      });
+    });
 
     // Visionneuse
     (function () {
